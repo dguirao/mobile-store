@@ -1,0 +1,6 @@
+<input
+  type="search"
+  placeholder="Buscar por marca o modelo..."
+  [value]="searchTerm()"
+  (input)="onInput($any($event.target).value)"
+/>

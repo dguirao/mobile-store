@@ -1,0 +1,30 @@
+<div class="toolbar">
+  <app-search-bar (searchChange)="onSearch($event)" />
+</div>
+
+<main>
+  @if (loading()) {
+    <p>Cargando...</p>
+  }
+
+  @if (error()) {
+    <p>Error al cargar los productos.</p>
+  }
+
+  @if (!loading() && !error()) {
+    <div class="grid">
+      @for (product of filteredProducts(); track product.id) {
+        <div class="card" (click)="goToDetail(product.id)">
+          <div class="card__img-wrap">
+            <img [src]="product.imgUrl" [alt]="product.brand + ' ' + product.model" />
+          </div>
+          <div class="card__body">
+            <span class="card__brand">{{ product.brand }}</span>
+            <p class="card__model">{{ product.model }}</p>
+            <p class="card__price">{{ formatPrice(product.price) }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</main>

@@ -1,0 +1,32 @@
+<header class="header">
+  <div class="header__inner">
+
+    <a routerLink="/products" class="header__logo" aria-label="Ir al listado de productos">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="5" y="2" width="14" height="20" rx="2"/>
+        <path d="M12 18h.01"/>
+      </svg>
+      <span>MobileStore</span>
+    </a>
+
+    <nav class="header__breadcrumb" aria-label="Breadcrumb">
+    <a routerLink="/products" class="header__bc-link">Productos</a>
+
+    @if (breadcrumb() && breadcrumb() !== 'Productos') {
+      <span class="header__bc-sep">/</span>
+      <span class="header__bc-current">{{ breadcrumb() }}</span>
+    }
+    </nav>
+
+    <div class="header__cart" aria-label="Carrito">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+    </div>
+
+  </div>
+</header>
