@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
@@ -16,6 +16,8 @@ export class ProductListComponent implements OnInit {
   searchTerm = signal('');
   loading = signal(true);
   error = signal(false);
+  private productService = inject(ProductService);
+  private router = inject(Router);
 
   filteredProducts = computed(() => {
     const term = this.searchTerm().toLowerCase().trim();
@@ -25,11 +27,6 @@ export class ProductListComponent implements OnInit {
       p.model.toLowerCase().includes(term)
     );
   });
-
-  constructor(
-    private productService: ProductService,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
@@ -56,10 +53,7 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['/product', id]);
   }
 
-  formatPrice(price: number): string {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'EUR'
-    }).format(price);
+  formatPrice(price: string): string {
+    return `${price} €`;
   }
 }

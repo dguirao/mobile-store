@@ -14,7 +14,11 @@
   @if (!loading() && !error()) {
     <div class="grid">
       @for (product of filteredProducts(); track product.id) {
-        <div class="card" (click)="goToDetail(product.id)">
+        <div class="card" 
+            (click)="goToDetail(product.id)"
+            (keydown.enter)="goToDetail(product.id)"
+            tabindex="0"
+            role="button">
           <div class="card__img-wrap">
             <img [src]="product.imgUrl" [alt]="product.brand + ' ' + product.model" />
           </div>

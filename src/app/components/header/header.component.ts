@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { CartService } from '../../services/cart.service';
 import { RouterLink, ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-//import { CartService } from '../../services/cart.service';
 import { filter, map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -13,7 +13,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class HeaderComponent {
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-
+  cartService = inject(CartService);
   breadcrumb = toSignal(
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd),

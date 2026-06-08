@@ -1,3 +1,68 @@
-<main class="placeholder">
-  <p>Product Detail — pendiente de implementar</p>
+<main>
+  <a routerLink="/products">← Volver a productos</a>
+
+  @if (loading()) {
+    <p>Cargando...</p>
+  }
+
+  @if (error()) {
+    <p>Error al cargar el producto.</p>
+  }
+
+  @if (!loading() && !error() && product()) {
+    <div class="detail">
+
+      <div class="detail__image">
+        <img [src]="product()!.imgUrl" [alt]="product()!.brand + ' ' + product()!.model" />
+      </div>
+
+      <div class="detail__info">
+        <span class="detail__brand">{{ product()!.brand }}</span>
+        <h1 class="detail__model">{{ product()!.model }}</h1>
+        <p class="detail__price">{{ product()!.price }} €</p>
+
+        <table class="detail__specs">
+          <tbody>
+            <tr><td>CPU</td><td>{{ product()!.cpu || '-' }}</td></tr>
+            <tr><td>RAM</td><td>{{ product()!.ram || '-' }}</td></tr>
+            <tr><td>Sistema operativo</td><td>{{ product()!.os || '-' }}</td></tr>
+            <tr><td>Resolución</td><td>{{ product()!.displayResolution || '-' }}</td></tr>
+            <tr><td>Pantalla</td><td>{{ product()!.displaySize || '-' }}</td></tr>
+            <tr><td>Batería</td><td>{{ product()!.battery || '-' }}</td></tr>
+            <tr><td>Cámara principal</td><td>{{ product()!.primaryCamera || '-' }}</td></tr>
+            <tr><td>Cámara frontal</td><td>{{ product()!.secondaryCmera || '-' }}</td></tr>
+            <tr><td>Dimensiones</td><td>{{ product()!.dimentions || '-' }}</td></tr>
+            <tr><td>Peso</td><td>{{ product()!.weight || '-' }}</td></tr>
+          </tbody>
+        </table>
+
+        <div class="detail__actions">
+          @if (product()!.options?.colors?.length) {
+            <div class="detail__select-group">
+              <label for="color">Color</label>
+              <select id="color" [(ngModel)]="selectedColor">
+                @for (color of product()!.options!.colors; track color.code) {
+                  <option [value]="color.code">{{ color.name }}</option>
+                }
+              </select>
+            </div>
+          }
+
+           @if (product()!.options?.storages?.length) {
+            <div class="detail__select-group">
+              <label for="storage">Almacenamiento</label>
+              <select id="storage" [(ngModel)]="selectedStorage">
+                @for (storage of product()!.options!.storages; track storage.code) {
+                  <option [value]="storage.code">{{ storage.name }}</option>
+                }
+              </select>
+            </div>
+          }
+          <button class="detail__btn" (click)="addToCart()">Añadir al carrito</button>
+        </div>  
+
+      </div>
+
+    </div>
+  }
 </main>
